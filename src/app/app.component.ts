@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { NasaService } from './nasa.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular';
+
+  imgOfTheDay = "";
+
+  constructor(public nasaService: NasaService){}
+
+  ngOnInit(): void {
+    this.nasaService.getImageOfTheDay().subscribe((toto) => {
+      this.imgOfTheDay = toto.url;
+    });
+}
 }
